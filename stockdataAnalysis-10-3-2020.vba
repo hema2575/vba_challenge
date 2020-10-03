@@ -1,8 +1,8 @@
 Attribute VB_Name = "Module11"
 Sub totalStockvol()
 Dim k As Double
-Dim book As Workbook
-Dim sheet As Worksheet
+'Dim book As Workbook
+'Dim sheet As Worksheet
 Dim EOYCloserowNum As Double
 Dim totalVol As Double
 Dim grtPrcntInc As Double
@@ -10,23 +10,22 @@ Dim grtPrcntDec As Double
 
 MsgBox ("Finding total volume of stock, yearly change and %change")
 
-
-For Each book In Workbooks
-For Each sheet In book.Worksheets
-MsgBox (sheet.Name)
+'For Each book In Workbooks
+'For Each sheet In book.Worksheets
+'MsgBox (sheet.Name)
 EOYCloserowNum = 1
- For k = 2 To sheet.Cells(Rows.Count, 1).End(xlUp).Row
-    If sheet.Cells(k, 1).Value <> sheet.Cells(k - 1, 1).Value Then
+ For k = 2 To Cells(Rows.Count, 1).End(xlUp).Row
+    If Cells(k, 1).Value <> Cells(k - 1, 1).Value Then
        totalVolrow = Cells(Rows.Count, 12).End(xlUp).Row + 1
-       Cells(totalVolrow, 9) = sheet.Cells(k, 1).Value ' ticker name -> I
-       Cells(totalVolrow, 12) = sheet.Cells(k, 7).Value 'calculating & updating totalstock vol -> L
-       Cells(totalVolrow, 13) = sheet.Cells(k, 3).Value 'annualOpen ->M
-       BOYOpen = sheet.Cells(k, 3).Value 'collecting annualOpen value into a variable
+       Cells(totalVolrow, 9) = Cells(k, 1).Value ' ticker name -> I
+       Cells(totalVolrow, 12) = Cells(k, 7).Value 'calculating & updating totalstock vol -> L
+       Cells(totalVolrow, 13) = Cells(k, 3).Value 'annualOpen ->M
+       BOYOpen = Cells(k, 3).Value 'collecting annualOpen value into a variable
        EOYCloserowNum = EOYCloserowNum + 1
    Else
        EOYCloserowNum = EOYCloserowNum + 1
-       Cells(totalVolrow, 12) = Cells(totalVolrow, 12) + sheet.Cells(k, 7).Value 'calculating & updating totalstock vol -> L
-       Cells(totalVolrow, 14).Value = sheet.Cells(EOYCloserowNum, 6).Value 'EOYClose ->N
+       Cells(totalVolrow, 12) = Cells(totalVolrow, 12) + Cells(k, 7).Value 'calculating & updating totalstock vol -> L
+       Cells(totalVolrow, 14).Value = Cells(EOYCloserowNum, 6).Value 'EOYClose ->N
        EOYClose = Cells(EOYCloserowNum, 6).Value 'collecting annualclose value into a variable
     End If
         yrlyChng = Cells(totalVolrow, 14).Value - Cells(totalVolrow, 13).Value 'Calculating yearly change
@@ -42,8 +41,8 @@ EOYCloserowNum = 1
             End If
  Next k
        
-Next sheet
-Next book
+'Next sheet
+'Next book
 MsgBox ("Done. Now finding greatest stockVolume total, greatest % Increase and greatest % Decrease")
 
 
